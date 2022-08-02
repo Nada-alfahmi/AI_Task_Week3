@@ -18,51 +18,101 @@ Then It's worked and i downloaded ROS peacefully
 
 # 1 - Setup your sources.list :
 
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+$  sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 
 # 2 - Set up your keys :
 
-sudo apt install curl # if you haven't already installed curl
+$  sudo apt install curl # if you haven't already installed curl
 
-curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+$  curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 
 # 3 - Installation
 
-sudo apt update
+$  sudo apt update
 
-sudo apt install ros-melodic-desktop-full
+$  sudo apt install ros-melodic-desktop-full
 
-sudo apt install ros-melodic-desktop
+$  sudo apt install ros-melodic-desktop
 
-sudo apt install ros-melodic-ros-base
+$  sudo apt install ros-melodic-ros-base
 
-sudo apt install ros-melodic-PACKAGE
+$  sudo apt install ros-melodic-PACKAGE
 
-sudo apt install ros-melodic-slam-gmapping
+$  sudo apt install ros-melodic-slam-gmapping
 
 # 4 - Environment setup
 
-echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+$  echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 
-source ~/.bashrc
+$  source ~/.bashrc
 
-source /opt/ros/melodic/setup.bash
+$  source /opt/ros/melodic/setup.bash
 
-echo "source /opt/ros/melodic/setup.zsh" >> ~/.zshrc
+$  echo "source /opt/ros/melodic/setup.zsh" >> ~/.zshrc
 
-source ~/.zshrc
+$  source ~/.zshrc
 
 # 5 - Dependencies for building packages
 
-sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+$  sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
 
-sudo apt install python-rosdep
+# 5.1 Initialize rosdep
 
-sudo rosdep init
+$  sudo apt install python-rosdep
 
-rosdep update
+$  sudo rosdep init
+
+$  rosdep update
 
 # 6 - To make sure its work 
 
-roscore
+$ roscore
+
+# Creating a WrokSpace :
+
+$ mkdir tutorials_catkin_ws
+
+$ cd tutorials_catkin_ws/
+
+$ mkdir src
+
+$ cd src/
+
+$ catkin_init_workspace
+
+$ cd .. 
+
+$ catkin_make
+
+$ echo ${ROS_PACKAGE_PATH}
+
+$ source setup.bash
+
+$ echo ${ROS_PACKAGE_PATH}
+
+$ cd ..
+
+# Install the Arm Package :
+
+$ cd src/
+
+$ sudo apt install git
+
+$ git clone http://github.com/smart-methods/arduino_robot_arm
+
+$ cd  ~/tutorials_catkin_ws
+
+$ rosdep install --from-paths src --ignore-src -r -y
+
+$ sudo apt-get install ros-melodic-moveit
+
+$ sudo apt-get install ros-melodic-joint-state-publisher ros-melodic-joint-state-publisher-gui
+
+$ sudo apt-get install ros-melodic-gazebo-ros-control joint-state-publisher
+
+$ sudo apt-get install ros-melodic-ros-controllers ros-melodic-ros-control
+
+# Finally laucnh the package
+
+$ roslaunch robot_arm_pkg check_motors.launch
 
