@@ -112,7 +112,8 @@ $ sudo apt-get install ros-melodic-gazebo-ros-control joint-state-publisher
 
 $ sudo apt-get install ros-melodic-ros-controllers ros-melodic-ros-control
 
-# Finally laucnh the package
+# Finally Launch the package
 
 $ roslaunch robot_arm_pkg check_motors.launch
+
 
